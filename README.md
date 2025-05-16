@@ -40,7 +40,7 @@ Donkeycar-LinearEnhanced源自大二时参加的个性化实验项目，对Donke
 
    如图所示：
 
-   ![test](.\image\road.jpg)
+   ![test](./image/road.jpg)
 
    ![lined_img](.\image\lined_img.jpg)
 
