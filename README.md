@@ -94,7 +94,7 @@ Donkeycar-LinearEnhanced源自大二时参加的个性化实验项目，对Donke
 
 
 
-## 三、优化后的模型代码 KerasLinearEnhanced.py
+## 三、优化后的部分模型代码 详见KerasLinearEnhanced.py
 
 ```python
 class KerasLinearEnhanced(KerasPilot):
@@ -124,53 +124,6 @@ class KerasLinearEnhanced(KerasPilot):
             loss=losses,
             loss_weights=loss_weights
         )
-
-    def enhanced_linear_model(self, num_outputs, input_shape):
-        """增强的线性模型架构"""
-        drop = 0.3
-        img_in = Input(shape=input_shape, name='img_in')
-        
-        # 使用更现代的CNN架构
-        x = Convolution2D(24, (5,5), strides=(2,2), activation='elu')(img_in)
-        x = BatchNormalization()(x)
-        x = Dropout(drop)(x)
-        
-        x = Convolution2D(36, (5,5), strides=(2,2), activation='elu')(x)
-        x = BatchNormalization()(x)
-        x = Dropout(drop)(x)
-        
-        x = Convolution2D(48, (5,5), strides=(2,2), activation='elu')(x)
-        x = BatchNormalization()(x)
-        x = Dropout(drop)(x)
-        
-        x = Convolution2D(64, (3,3), activation='elu')(x)
-        x = BatchNormalization()(x)
-        x = Dropout(drop)(x)
-        
-        x = Convolution2D(64, (3,3), activation='elu')(x)
-        x = BatchNormalization()(x)
-        x = Dropout(drop)(x)
-        
-        # 添加空间注意力模块
-        attn = Convolution2D(1, (1, 1), activation='sigmoid')(x)
-        x = Multiply()([x, attn])  # 特征图加权
-        
-        x = Flatten()(x)
-        
-        # 更深的全连接网络
-        x = Dense(256, activation='elu')(x)
-        x = Dropout(drop)(x)
-        x = Dense(128, activation='elu')(x)
-        x = Dropout(drop)(x)
-        x = Dense(64, activation='elu')(x)
-        x = Dropout(drop)(x)
-        
-        outputs = []
-        for i in range(num_outputs):
-            outputs.append(Dense(1, activation='linear', name='n_outputs'+str(i))(x))
-            
-        model = Model(inputs=[img_in], outputs=outputs, name='linear_enhanced')
-        return model
     
     
     def run(self, img_arr: np.ndarray, *other_arr: list) -> Tuple[float, float]:
@@ -191,6 +144,55 @@ class KerasLinearEnhanced(KerasPilot):
  
 
     # 其余方法继承自KerasLinear保持不变
+    
+    
+# 为跟官方写法一致，一下函数不作为类函数，作为被调用的函数
+def enhanced_linear_model(self, num_outputs, input_shape):
+    """增强的线性模型架构"""
+    drop = 0.3
+    img_in = Input(shape=input_shape, name='img_in')
+
+    # 使用更现代的CNN架构
+    x = Convolution2D(24, (5,5), strides=(2,2), activation='elu')(img_in)
+    x = BatchNormalization()(x)
+    x = Dropout(drop)(x)
+
+    x = Convolution2D(36, (5,5), strides=(2,2), activation='elu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(drop)(x)
+
+    x = Convolution2D(48, (5,5), strides=(2,2), activation='elu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(drop)(x)
+
+    x = Convolution2D(64, (3,3), activation='elu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(drop)(x)
+
+    x = Convolution2D(64, (3,3), activation='elu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(drop)(x)
+
+    # 添加空间注意力模块
+    attn = Convolution2D(1, (1, 1), activation='sigmoid')(x)
+    x = Multiply()([x, attn])  # 特征图加权
+
+    x = Flatten()(x)
+
+    # 更深的全连接网络
+    x = Dense(256, activation='elu')(x)
+    x = Dropout(drop)(x)
+    x = Dense(128, activation='elu')(x)
+    x = Dropout(drop)(x)
+    x = Dense(64, activation='elu')(x)
+    x = Dropout(drop)(x)
+
+    outputs = []
+    for i in range(num_outputs):
+        outputs.append(Dense(1, activation='linear', name='n_outputs'+str(i))(x))
+	
+    model = Model(inputs=[img_in], outputs=outputs, name='linear_enhanced')
+    return model
 ```
 
 
@@ -203,7 +205,7 @@ class KerasLinearEnhanced(KerasPilot):
 |   **激活函数**   |            ReLU            |      ELU（更缓解梯度消失）      |
 |    **正则化**    |       Dropout (0.2)        |    Dropout (0.3) + BatchNorm    |
 |  **全连接结构**  |       Dense(100→50)        |     Dense(256→128→64)，更深     |
-|   **损失函数**   |      MSE（全部输出）       | MSE(steering) + Huber(throttle) |
+|   **损失函数**   |            MSE             | MSE(steering) + Huber(throttle) |
 |   **损失权重**   |     默认均衡（无加权）     |  steering: 0.7, throttle: 0.3   |
 |    **优化器**    |    可选 RMSProp / Adam     |          默认使用 Adam          |
 | **输出范围限制** |             无             |               无                |
