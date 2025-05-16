@@ -231,7 +231,7 @@ def enhanced_linear_model(self, num_outputs, input_shape):
 
 文档地址：[donkeydocs/docs/dev_guide/model.md at master · autorope/donkeydocs](https://github.com/autorope/donkeydocs/blob/master/docs/dev_guide/model.md)
 
-1. 将模型整个class添加到`donkeycar/parts/keras.py`中
+1. 将KerasLinearEnhanced.py中整个class添加到`donkeycar/parts/keras.py`中，注意最后的enhanced_linear_model(self, num_outputs, input_shape)不要放到类里
 
 2. 在`donkeycar/utils.py`的``函数中加入LinearEnhanced的选项
 
