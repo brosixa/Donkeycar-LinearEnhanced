@@ -42,7 +42,7 @@ Donkeycar-LinearEnhanced源自大二时参加的个性化实验项目，对Donke
 
    ![test](./image/road.jpg)
 
-   ![lined_img](.\image\lined_img.jpg)
+   ![lined_img](./image/lined_img.jpg)
 
    而画面的天空、周围的土地和远处的马路，对当下转向和油门决策影响较小。
 
@@ -56,7 +56,7 @@ Donkeycar-LinearEnhanced源自大二时参加的个性化实验项目，对Donke
 
 - 使用 `ELU` 激活函数 替代 ReLU，有助于减少梯度消失
 
-  ![elu_vs_relu](.\image\elu_vs_relu.png)
+  ![elu_vs_relu](./image/elu_vs_relu.png)
 
   上图展示了 ReLU 和 ELU 激活函数的对比：
 
@@ -221,7 +221,7 @@ def enhanced_linear_model(self, num_outputs, input_shape):
 
 视频地址：[基于Donkeycar中KerasLinear模型的优化_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1uhEbz8E3w/?vd_source=ab275355fbf9a153dc896bb80b0dd8da)
 
-<img src=".\image\Linear_VS_LinearEnhanced.jpg" alt="Linear_VS_LinearEnhanced" style="zoom:80%;" />
+<img src="./image/Linear_VS_LinearEnhanced.jpg" alt="Linear_VS_LinearEnhanced" style="zoom:80%;" />
 
 
 
