@@ -213,19 +213,7 @@ def enhanced_linear_model(self, num_outputs, input_shape):
 
 
 
-## 五、模型效果展示
-
-——在Donkeycar模拟器donkeycar simulator上和原模型同屏竞技
-
-模拟器项目地址：[Releases · tawnkramer/gym-donkeycar](https://github.com/tawnkramer/gym-donkeycar/releases)
-
-视频地址：[基于Donkeycar中KerasLinear模型的优化_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1uhEbz8E3w/?vd_source=ab275355fbf9a153dc896bb80b0dd8da)
-
-<img src="./image/Linear_VS_LinearEnhanced.jpg" alt="Linear_VS_LinearEnhanced" style="zoom:80%;" />
-
-
-
-## 六、使用说明
+## 五、使用说明
 
 官方文档提供了将自己构建的网络添加入Donkeycar训练的方法
 
